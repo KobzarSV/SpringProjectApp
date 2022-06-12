@@ -42,7 +42,7 @@ public class UserController {
             return "registration";
         }
         try {
-            userService.add(user);
+            userService.save(user);
         } catch (UserEmailAlreadyExistException ex) {
             model.addAttribute("message", ex.getMessage());
             return "registration";
@@ -84,7 +84,7 @@ public class UserController {
             return "addUserForm";
         }
         try {
-            userService.update(user);
+            userService.add(user);
         } catch (UserEmailAlreadyExistException ex) {
             model.addAttribute("message", ex.getMessage());
             List<UserRole> userRoles = Arrays.asList(UserRole.values());

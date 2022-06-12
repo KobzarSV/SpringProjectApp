@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -40,6 +41,7 @@
                           <a href="/manufacturer/id/${product.manufacturer.id}"><c:out value="${product.manufacturer.name}"/></a>
                        </td>
 
+                       <security:authorize access="hasRole('ROLE_ADMIN')">
                        <td>
                           <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
                              <div class="btn-group me-2" role="group" aria-label="Second group">
@@ -48,6 +50,8 @@
                              </div>
                           </div>
                        </td>
+                       </security:authorize>
+
                     </tr>
                  </c:forEach>
               </tbody>

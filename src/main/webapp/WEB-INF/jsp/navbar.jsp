@@ -26,13 +26,14 @@
                     </ul>
                   </li>
 
+                  <security:authorize access="hasRole('ROLE_ADMIN')">
                   <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Users <span class="caret"></span></a>
                      <ul class="dropdown-menu">
                         <li><a href="/users/all">View All Users</a></li>
                         <li><a href="/users/form/add">Create User</a></li>
                      </ul>
                    </li>
-
+                  </security:authorize>
               </ul>
                  <ul class="nav navbar-nav navbar-right">
                    <li>
