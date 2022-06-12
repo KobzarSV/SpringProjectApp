@@ -43,12 +43,12 @@ public class ProductService {
                 .collect(Collectors.toList());
     }
 
-    public void save(ProductDto productDto) {
-        if (productRepository.findByName(productDto.getName()).isEmpty()) {
-            productRepository.save(productConverter.toDao(productDto));
-        } else {
-            throw new ProductNotFoundException("This product is already exist!");
-        }
+    public void saveOrUpdate(ProductDto productDto) {
+        productRepository.save(productConverter.toDao(productDto));
+    }
+
+    public void delete(ProductDto productDto) {
+        productRepository.delete(productConverter.toDao(productDto));
     }
 
     public Set<ProductDto> findByIds(Set<UUID> ids) {

@@ -1,13 +1,18 @@
 package ua.goit.model.converter;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ua.goit.model.dao.ProductDao;
 import ua.goit.model.dto.ProductDto;
 
 @Service
-public class ProductConverter implements Converter <ProductDao, ProductDto> {
+public class ProductConverter implements Converter<ProductDao, ProductDto> {
 
-    public ProductConverter() {
+    private final ManufacturerConverter manufacturerConverter;
+
+    @Autowired
+    public ProductConverter(ManufacturerConverter manufacturerConverter) {
+        this.manufacturerConverter = manufacturerConverter;
     }
 
     @Override
@@ -16,7 +21,7 @@ public class ProductConverter implements Converter <ProductDao, ProductDto> {
         dto.setId(dao.getId());
         dto.setName(dao.getName());
         dto.setPrice(dao.getPrice());
-        dto.setManufacturer(dao.getManufacturer());
+        dto.setManufacturer(manufacturerConverter.toDto(dao.getManufacturer()));
         return dto;
     }
 
@@ -26,7 +31,7 @@ public class ProductConverter implements Converter <ProductDao, ProductDto> {
         dao.setId(dto.getId());
         dao.setName(dto.getName());
         dao.setPrice(dto.getPrice());
-        dao.setManufacturer(dto.getManufacturer());
+        dao.setManufacturer(manufacturerConverter.toDao(dto.getManufacturer()));
         return dao;
     }
 }

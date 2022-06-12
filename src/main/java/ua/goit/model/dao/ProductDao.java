@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 import java.util.UUID;
 
 @Entity
-@Table(name="product")
+@Table(name = "product")
 @javax.persistence.Cacheable
 public class ProductDao {
 
@@ -27,7 +27,7 @@ public class ProductDao {
     }
 
     @Id
-    @Type(type="org.hibernate.type.PostgresUUIDType")
+    @Type(type = "org.hibernate.type.PostgresUUIDType")
     @Column(name = "id", columnDefinition = "uuid")
     @GeneratedValue(strategy = GenerationType.AUTO)
     public UUID getId() {
@@ -56,8 +56,8 @@ public class ProductDao {
         this.price = price;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name="manufacturer_id", nullable=false)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "manufacturer_id")
     public ManufacturerDao getManufacturer() {
         return manufacturer;
     }

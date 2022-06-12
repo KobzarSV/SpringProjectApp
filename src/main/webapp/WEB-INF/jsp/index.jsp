@@ -11,13 +11,12 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     </head>
-
     <body>
-        <c:import url="${contextPath}/WEB-INF/html/navbar.jsp"/>
-
-            <h3 style="text-align: center">SPRING SHOP</h3>
-            <h4 style="text-align: center">Welcome!</h4>
-
+       <c:import url="${contextPath}/WEB-INF/jsp/navbar.jsp"/>
+          <br>
+          <br>
+          <h1 style="text-align: center; color:green">SPRING SHOP</h1>
+          <h3 style="text-align: center">Welcome!</h3>
     </body>
 </html>
 

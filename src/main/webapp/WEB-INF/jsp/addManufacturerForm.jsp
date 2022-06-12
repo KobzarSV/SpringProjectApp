@@ -15,20 +15,23 @@
     </head>
 
     <body>
-        <c:import url="${contextPath}/WEB-INF/html/navbar.jsp"/>
+        <c:import url="${contextPath}/WEB-INF/jsp/navbar.jsp"/>
+
         <div class="container">
-            <form action="/manufacturer/addManufacturer" method="post" modelAttribute="ManufacturerDto">
+            <form:form action="/manufacturer/" method="post" modelAttribute="manufacturerDto">
                 <div class="form-group">
-                    <label path="name">Manufacturer name:</label><br>
-                    <input type="text" class="form-control" id="manufacturerName" placeholder="Enter manufacturer name" name="manufacturerName" path="name"/><errors path="name" style="color:red"/><br>
+                    <form:label path="name">Manufacturer name: </form:label><br>
+                    <form:input type="text" class="form-control" id="manufacturerName" placeholder="Enter manufacturer name" name="manufacturerName" path="name"/>
+                    <form:errors path="name" style="color:red"/><br>
+                    <span style="color:red">${message}</span>
                 </div>
                     <input type="submit" value="Submit"/>
-           </form>
-            <c:if test="${not empty errorMessage}">
+           </form:form>
+           <c:if test="${not empty errorMessage}">
               <c:forEach items="${errorMessage.errors}" var="error">
                  <p style="color:red">${error}</p>
               </c:forEach>
-            </c:if>
+           </c:if>
         </div>
     </body>
 </html>

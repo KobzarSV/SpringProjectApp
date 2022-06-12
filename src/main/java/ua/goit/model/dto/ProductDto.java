@@ -1,10 +1,9 @@
 package ua.goit.model.dto;
 
-import ua.goit.model.dao.ManufacturerDao;
-
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
+import java.util.Objects;
 import java.util.UUID;
 
 public class ProductDto {
@@ -12,9 +11,9 @@ public class ProductDto {
     private UUID id;
     private String name;
     private BigDecimal price;
-    private ManufacturerDao manufacturer;
+    private ManufacturerDto manufacturer;
 
-    public ProductDto(UUID id, String name, BigDecimal price, ManufacturerDao manufacturer) {
+    public ProductDto(UUID id, String name, BigDecimal price, ManufacturerDto manufacturer) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -32,7 +31,7 @@ public class ProductDto {
         this.id = id;
     }
 
-    @NotEmpty
+    @NotEmpty(message = "Please enter name")
     public String getName() {
         return name;
     }
@@ -41,7 +40,7 @@ public class ProductDto {
         this.name = name;
     }
 
-    @NotNull
+    @NotNull(message = "Please enter price")
     public BigDecimal getPrice() {
         return price;
     }
@@ -50,11 +49,32 @@ public class ProductDto {
         this.price = price;
     }
 
-    public ManufacturerDao getManufacturer() {
+    @NotNull
+    public ManufacturerDto getManufacturer() {
         return manufacturer;
     }
 
-    public void setManufacturer(ManufacturerDao manufacturer) {
+    public void setManufacturer(ManufacturerDto manufacturer) {
         this.manufacturer = manufacturer;
+    }
+
+    @Override
+    public String toString() {
+        return id +
+                "," + name +
+                "," + price;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ProductDto that = (ProductDto) o;
+        return Objects.equals(id, that.id) && Objects.equals(name, that.name) && Objects.equals(price, that.price);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, price);
     }
 }

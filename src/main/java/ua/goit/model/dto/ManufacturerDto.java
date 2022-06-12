@@ -1,7 +1,6 @@
 package ua.goit.model.dto;
 
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
@@ -21,7 +20,6 @@ public class ManufacturerDto {
     public ManufacturerDto() {
     }
 
-    @NotNull
     public UUID getId() {
         return id;
     }
@@ -30,7 +28,7 @@ public class ManufacturerDto {
         this.id = id;
     }
 
-    @NotEmpty
+    @NotEmpty(message = "Please enter name")
     public String getName() {
         return name;
     }
@@ -49,10 +47,8 @@ public class ManufacturerDto {
 
     @Override
     public String toString() {
-        return "Manufacturer{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                '}';
+        return id +
+                "," + name;
     }
 
     @Override

@@ -1,6 +1,5 @@
 package ua.goit.model.dao;
 
-import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
@@ -9,7 +8,7 @@ import java.util.Set;
 import java.util.UUID;
 
 @Entity
-@Table(name="manufacturer")
+@Table(name = "manufacturer")
 @Cacheable
 public class ManufacturerDao {
 
@@ -32,7 +31,7 @@ public class ManufacturerDao {
     }
 
     @Id
-    @Type(type="org.hibernate.type.PostgresUUIDType")
+    @Type(type = "org.hibernate.type.PostgresUUIDType")
     @Column(name = "id", columnDefinition = "uuid")
     @GeneratedValue(strategy = GenerationType.AUTO)
     public UUID getId() {
@@ -52,7 +51,7 @@ public class ManufacturerDao {
         this.name = name;
     }
 
-    @OneToMany(mappedBy="manufacturer", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE )
+    @OneToMany(mappedBy = "manufacturer", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     public Set<ProductDao> getProducts() {
         return products;
     }
@@ -63,10 +62,8 @@ public class ManufacturerDao {
 
     @Override
     public String toString() {
-        return "ManufacturerDao{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                '}';
+        return id +
+                "," + name;
     }
 
     @Override

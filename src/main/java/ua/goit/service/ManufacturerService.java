@@ -25,10 +25,10 @@ public class ManufacturerService {
         this.manufacturerConverter = manufacturerConverter;
     }
 
-    public ManufacturerDto findById (UUID uuid) {
-        return manufacturerConverter.toDto(manufacturerRepository.findById(uuid)
+    public ManufacturerDto findById(UUID id) {
+        return manufacturerConverter.toDto(manufacturerRepository.findById(id)
                 .orElseThrow(() -> new ManufacturerNotFoundException(String.format(
-                        "Manufacturer with name - %s does not exist", uuid))));
+                        "Manufacturer with id - %s does not exist", id))));
     }
 
     public ManufacturerDto findByName(String name) {
@@ -43,12 +43,16 @@ public class ManufacturerService {
                 .collect(Collectors.toList());
     }
 
-    public void save(ManufacturerDto manufacturerDto) {
+    public void saveOrUpdate(ManufacturerDto manufacturerDto) {
         if (manufacturerRepository.findByName(manufacturerDto.getName()).isEmpty()) {
             manufacturerRepository.save(manufacturerConverter.toDao(manufacturerDto));
         } else {
             throw new ManufacturerNotFoundException("This manufacturer is already exist!");
         }
+    }
+
+    public void delete(ManufacturerDto manufacturerDto) {
+        manufacturerRepository.delete(manufacturerConverter.toDao(manufacturerDto));
     }
 
     public Set<ManufacturerDto> findByIds(Set<UUID> uuids) {
