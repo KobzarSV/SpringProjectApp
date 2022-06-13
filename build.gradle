@@ -1,60 +1,58 @@
 plugins {
     id 'java'
+    id 'org.springframework.boot' version '2.2.6.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+//    id 'war'
 }
 
-group 'org.example'
+group 'ua.goit.SpringProjectApp'
 version '1.0-SNAPSHOT'
+
+sourceCompatibility = 11
+targetCompatibility = 11
 
 repositories {
     mavenCentral()
 }
 
+test {
+    useJUnitPlatform()
+}
+
 ext {
-    hibernateVersion = '5.4.10.Final'
-    postgreSQLVersion = '42.3.4'
-    javaxServletApiVersion = '4.0.1'
+    postgreSQLVersion = '42.3.6'
     jstlVersion = '1.2'
-    ehcacheVersion = '3.9.9'
-    ehcacheHibernateVersion = '6.0.0.Alpha7'
-    jaxbCoreVersion = '2.3.0.1'
-    jaxbVersion = '2.3.1'
-    javaxPersistenceVersion = '2.2'
-    junitVersion = '5.8.2'
     mockitoVersion = '4.0.0'
-    springVersion = '5.2.12.RELEASE'
-    log4jVersion = '2.17.2'
     springSecurityVersion = '5.2.12.RELEASE'
 }
 
 dependencies {
+//    implementation group: 'org.springframework.boot', name: 'spring-boot-autoconfigure', version: '2.2.6.RELEASE'
     implementation "org.postgresql:postgresql:${postgreSQLVersion}"
-    implementation "javax.servlet:javax.servlet-api:${javaxServletApiVersion}"
     implementation "jstl:jstl:${jstlVersion}"
-    implementation "org.hibernate:hibernate-core:${hibernateVersion}"
-    implementation group: "org.ehcache", name: "ehcache", version: "${ehcacheVersion}"
-    implementation "org.hibernate:hibernate-jcache:${hibernateVersion}"
-    implementation "org.hibernate:hibernate-ehcache:${ehcacheHibernateVersion}"
-    implementation group: 'org.springframework', name: 'spring-context-support', version: "${springVersion}"
-    implementation group: 'org.springframework', name: 'spring-context', version: "${springVersion}"
-    implementation group: 'org.springframework', name: 'spring-aspects', version: "${springVersion}"
-    implementation group: 'org.springframework', name: 'spring-web', version: "${springVersion}"
-    implementation group: "javax.persistence", name: "javax.persistence-api", version: "${javaxPersistenceVersion}"
-    implementation group: 'org.springframework.data', name: 'spring-data-jpa', version: '2.2.6.RELEASE'
-    implementation group: 'org.springframework', name: 'spring-webmvc', version: "${springVersion}"
-    implementation group: 'org.apache.logging.log4j', name: 'log4j-core', version: "${log4jVersion}"
-    implementation group: 'org.apache.logging.log4j', name: 'log4j-api', version: "${log4jVersion}"
-    implementation group: 'org.hibernate', name: 'hibernate-validator', version: '6.1.0.Final'
     implementation group: 'javax.validation', name: 'validation-api', version: '2.0.1.Final'
-    implementation group: 'org.springframework.security', name: 'spring-security-web', version: "${springSecurityVersion}"
-    implementation group: 'org.springframework.security', name: 'spring-security-config', version: "${springSecurityVersion}"
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-web'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-security'
     implementation group: 'org.springframework.security', name: 'spring-security-taglibs', version: "${springSecurityVersion}"
-    testImplementation group: "org.junit.jupiter", name: "junit-jupiter-engine", version: "${junitVersion}"
-    testImplementation group: "org.junit.vintage", name: "junit-vintage-engine", version: "${junitVersion}"
-    testImplementation group: "org.junit.jupiter", name: "junit-jupiter-api", version: "${junitVersion}"
-    testImplementation group: "org.mockito", name: "mockito-junit-jupiter", version: "${mockitoVersion}"
-    testImplementation group: "org.mockito", name: "mockito-core", version: "${mockitoVersion}"
+    implementation group: 'org.apache.tomcat.embed', name: 'tomcat-embed-jasper', version: '9.0.34'
+    implementation 'com.github.jsimone:webapp-runner:9.0.27.1'
+    testImplementation group: "org.junit.jupiter", name: "junit-jupiter-engine", version: "5.2.0"
+    testImplementation group: 'org.springframework.security', name: 'spring-security-test'
+    testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test'
+    testImplementation group: 'com.h2database', name: 'h2', version: '2.1.212'
 }
 
-test {
-    useJUnitPlatform()
-}
+//task stage() {
+//    dependsOn clean, war
+//}
+//war.mustRunAfter clean
+//
+//task copyToLib(type: Copy) {
+//    into "$buildDir/server"
+//    from(configurations.compileClasspath) {
+//        include "webapp-runner*"
+//    }
+//}
+//
+//stage.dependsOn(copyToLib)

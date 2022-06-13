@@ -3,6 +3,7 @@ package ua.goit.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -24,10 +25,12 @@ import java.util.UUID;
 public class UserController {
 
     private final UserService userService;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserController(UserService userService) {
+    public UserController(UserService userService, PasswordEncoder passwordEncoder) {
         this.userService = userService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @GetMapping(path = "/registration")
@@ -42,6 +45,7 @@ public class UserController {
             return "registration";
         }
         try {
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
             userService.save(user);
         } catch (UserEmailAlreadyExistException ex) {
             model.addAttribute("message", ex.getMessage());
@@ -84,6 +88,7 @@ public class UserController {
             return "addUserForm";
         }
         try {
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
             userService.add(user);
         } catch (UserEmailAlreadyExistException ex) {
             model.addAttribute("message", ex.getMessage());
@@ -134,6 +139,7 @@ public class UserController {
             if (user.getEmail().equals(userDto.getEmail())) {
                 userService.delete(userDto);
             }
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
             userService.update(user);
             model.setViewName("redirect:/users/all");
         } catch (UserEmailAlreadyExistException ex) {

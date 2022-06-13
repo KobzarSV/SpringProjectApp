@@ -22,21 +22,17 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final UserConverter userConverter;
-    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserService(UserRepository userRepository, UserConverter userConverter, PasswordEncoder passwordEncoder) {
+    public UserService(UserRepository userRepository, UserConverter userConverter) {
         this.userRepository = userRepository;
         this.userConverter = userConverter;
-        this.passwordEncoder = passwordEncoder;
     }
 
     public void save(UserDto userDto) {
         validateEmail(userDto);
-
         userDto.setUserRole(UserRole.ROLE_VISITOR);
         userDto.setUserStatus(UserStatus.ACTIVE);
-        userDto.setPassword(passwordEncoder.encode(userDto.getPassword()));
         userRepository.save(userConverter.toDao(userDto));
     }
 
@@ -68,15 +64,11 @@ public class UserService {
 
     public void add(UserDto userDto) {
         validateEmail(userDto);
-
-        userDto.setPassword(passwordEncoder.encode(userDto.getPassword()));
         userRepository.save(userConverter.toDao(userDto));
     }
 
     public void update(UserDto userDto) {
         validateEmail(userDto);
-
-        userDto.setPassword(passwordEncoder.encode(userDto.getPassword()));
         userRepository.save(userConverter.toDao(userDto));
     }
 
