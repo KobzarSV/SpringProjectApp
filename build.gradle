@@ -2,7 +2,6 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version '2.2.6.RELEASE'
     id 'io.spring.dependency-management' version '1.0.9.RELEASE'
-//    id 'war'
 }
 
 group 'ua.goit.SpringProjectApp'
@@ -27,7 +26,6 @@ ext {
 }
 
 dependencies {
-//    implementation group: 'org.springframework.boot', name: 'spring-boot-autoconfigure', version: '2.2.6.RELEASE'
     implementation "org.postgresql:postgresql:${postgreSQLVersion}"
     implementation "jstl:jstl:${jstlVersion}"
     implementation group: 'javax.validation', name: 'validation-api', version: '2.0.1.Final'
@@ -42,17 +40,3 @@ dependencies {
     testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test'
     testImplementation group: 'com.h2database', name: 'h2', version: '2.1.212'
 }
-
-//task stage() {
-//    dependsOn clean, war
-//}
-//war.mustRunAfter clean
-//
-//task copyToLib(type: Copy) {
-//    into "$buildDir/server"
-//    from(configurations.compileClasspath) {
-//        include "webapp-runner*"
-//    }
-//}
-//
-//stage.dependsOn(copyToLib)
